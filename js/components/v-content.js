@@ -240,7 +240,7 @@ export default {
             -->
             
             
-            <div class="stick">
+            <div class="stick stick-top">
               <h2 style="text-align: center;">
                 Total armor: {{shortNumber(totalArmor)}} 
                 ({{(totalArmor).toLocaleString()}})
@@ -354,7 +354,7 @@ export default {
           </div>           
 
 <!-- ///////////////////////////////////////////////////////// -->
-            <div class="stick-bottom">
+            <div class="stick stick-bottom">
                 Total gear upgrade costs
                 <hr class="td2-hr"/>
 
