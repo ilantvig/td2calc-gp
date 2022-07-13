@@ -279,8 +279,8 @@ export default {
                     class="text-lg td2-input" 
                     type="number" placeholder="10" 
                     min="0" max="35" step="1">%
-                <button class="td2-button" @click="totalArmorBonus = 0">Set to 0</button>
-                <button class="td2-button" @click="totalArmorBonus = 10">Set to 10</button>
+                <button class="td2-button" @click="totalArmorBonus = 0; updateTotalArmor()">Set to 0</button>
+                <button class="td2-button" @click="totalArmorBonus = 10; updateTotalArmor()">Set to 10</button>
             </div>
 
 
