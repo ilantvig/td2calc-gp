@@ -8,7 +8,7 @@ import vMainWrapper from "./components/v-main-wrapper.js"
 createApp({
   data() {
     return {
-      title: "TD2x Gear Proficiency Calculator"
+      title: "[dev] TD2 Gear Proficiency Calculator"
     }
   },
   template: /*template*/ `{{title}}`
