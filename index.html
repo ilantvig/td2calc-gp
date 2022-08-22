@@ -2,26 +2,32 @@
 
 <!DOCTYPE html>
 <html>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
 
-<head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
 
-	<link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
 
-	<link rel="stylesheet" type="text/css" href="./style.css" />
-	
-	<script type="module" src="./src/main.js"></script>
-	
-	<title id="title"></title>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+          "vue-i18n": "https://unpkg.com/vue-i18n@9/dist/vue-i18n.esm-browser.js"
+        }
+      }
+    </script>
 
-</head>
+    <script type="module" src="./src/main.js"></script>
 
-<body>
-	<!-- app -->
-	<div id="app"></div>
-</body>
+    <title id="title"></title>
+  </head>
 
+  <body>
+    <!-- app -->
+    <div id="app"></div>
+  </body>
 </html>
