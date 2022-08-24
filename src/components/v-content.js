@@ -407,15 +407,17 @@ export default {
           </div>           
 
 <!-- ///////////////////////////////////////////////////////// -->
+
             <div class="stick stick-bottom">
                 {{gearUpgradeCosts}}
                 <hr class="td2-hr"/>
-
-                <div v-for="(gearMatName,matIndex) in gearMaterialNames"
-                :key="matIndex">
-                    {{gearMatName}}: {{totalGearUpgradeCoast[matIndex]}}
+                <div class="flex-container">
+                  <div v-for="(gearMatName,matIndex) in gearMaterialNames"
+                  :key="matIndex"
+                  class="flex-item">
+                      {{gearMatName}}: {{totalGearUpgradeCoast[matIndex]}}
+                  </div>
                 </div>
-
             </div>
 
             <!--

@@ -369,16 +369,21 @@ width: 600px;*/
 
 .flex-container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: space-around;
 
   /* text-align: center; */
 }
 
 .flex-item {
-  /* background-color: rgb(100, 100, 100); */
-  padding: 10px;
   flex: auto;
+  flex-basis: 150px;
+  flex-grow: 1;
+
+  /* border: 1px solid #96abfe; */
+  margin: 0 10px;
+  /* padding: 0 10px; */
 }
 
 
