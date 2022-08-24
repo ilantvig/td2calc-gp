@@ -407,7 +407,7 @@ export default {
           </div>           
 
 <!-- ///////////////////////////////////////////////////////// -->
-            <div class="stick stick-bottom" v-if="0">
+            <div class="stick stick-bottom">
                 {{gearUpgradeCosts}}
                 <hr class="td2-hr"/>
 
