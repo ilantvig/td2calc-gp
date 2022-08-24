@@ -1,33 +1,16 @@
 
+import LocaleChanger from "./LocaleChanger.js";
+
 export default {
   name: "v-content",
-  // components: {},
-  // принимает данные из родителя
+  components: {
+    LocaleChanger,
+  },
+  // emits: [],
   // props: {},
   data() {
     return {
       text: "v-content text",
-
-      switchModeText: [
-        "Switch to Individual Mode",
-        "Switch to Group Mode",
-      ],
-      gearMaterialNames: [
-        "Protective Fabric",
-        "Polycarbonate",
-        "Carbon Fiber",
-        "Field Recon Data",
-        "SHD Calibration",
-        "Exotic Material",
-      ],
-      gearMaterialNamesTmp: [
-        "Protective Fabric (Защитная ткань)",
-        "Polycarbonate (Поликарбонат)",
-        "Carbon Fiber (Углепластик)",
-        "Field Recon Data (Полевые даные)",
-        "SHD Calibration (Калибратор)",
-        "Exotic Material (Экзот. комп.)",
-      ],
       
       totalGearUpgradeCoast: [0, 0, 0, 0, 0, 0],
       gearUpgradeCoast: [
@@ -71,17 +54,68 @@ export default {
       totalArmor: 0,
       valueList: [0, 0, 0, 0, 0, 0],
       gearItems: [
-        { type: "Mask", value: 80297 },
-        { type: "Backpack", value: 130844 },
-        { type: "Chest", value: 157961 },
-        { type: "Gloves", value: 80297 },
-        { type: "Holster", value: 111889 },
-        { type: "Kneepads", value: 98726 },
+        { type: "mask", value: 80297 },
+        { type: "backpack", value: 130844 },
+        { type: "chest", value: 157961 },
+        { type: "gloves", value: 80297 },
+        { type: "holster", value: 111889 },
+        { type: "kneepads", value: 98726 },
       ],
     };
   },
-  // computed: {},
+  // ================================================================
+  computed: {
+    // translation begin
+
+    gearUpgradeCosts() {
+      return this.$t('gearUpgradeCosts');
+    },
+    
+    totalArmorText() {
+      return this.$t('totalArmor');
+    },
+    
+    proficiencyLevel() {
+      return this.$t('proficiencyLevel');
+    },
+    allProficiencyLevel() {
+      return this.$t('allProficiencyLevel');
+    },
+    
+    armorCore() {
+      return this.$t('armorCore');
+    },
+    
+    setTo() {
+      return this.$t('setTo');
+    },
+    
+    gearType() {
+      return this.objectFromLoacale('gearType');
+    },
+
+    switchLabelText() {
+      return this.objectFromLoacale('attributeLabel');
+    },
+
+    switchButtonText() {
+      return this.objectFromLoacale('attributeButtonText');
+    },
+
+    gearMaterialNames() {
+      return this.objectFromLoacale('gearMaterialNames');
+    },
+
+
+    // translation end
+
+  },
+  // ================================================================
   methods: {
+    objectFromLoacale(key) {
+      return this.$i18n['messages'][this.$i18n.locale][key];
+    },
+
     updateTotalArmor() {
       let sum = 0;
       for (let i = 0; i < 6; i++) {
@@ -233,6 +267,12 @@ export default {
   // =======================================================
   template: /*template*/ `
         <div class="v-content">
+
+          <locale-changer
+            v-model="$i18n.locale"
+            :availableLocales = "$i18n.availableLocales"
+          />
+
             <!--
             {{text}} <br/>
             {{gearWithArmorList}} <br/>
@@ -242,11 +282,11 @@ export default {
             
             <div class="stick stick-top">
               <h2 style="text-align: center;">
-                Total armor: {{shortNumber(totalArmor)}} 
+                {{totalArmorText}}: {{shortNumber(totalArmor)}} 
                 ({{(totalArmor).toLocaleString()}})
               </h2>
             </div>
-            
+
             <!--
             <br />
             
@@ -272,51 +312,57 @@ export default {
 <!-- ///////////////////////////////////////////////////////// -->
 
             <div class="box-orange">
-                <label :for="'totalArmorBonus_id'">Total armor: </label>
+                <label :for="'totalArmorBonus_id'">{{totalArmorText}}: </label>
                 <input :id="'totalArmorBonus_id'"
                     v-model="totalArmorBonus"
                     @change="updateTotalArmor()"
-                    class="text-lg td2-input" 
+                    class="text-lg td2-input"
+                    style="width: 7ex; text-align: end;"
                     type="number" placeholder="10" 
                     min="0" max="35" step="1">%
-                <button class="td2-button" @click="totalArmorBonus = 0; updateTotalArmor()">Set to 0</button>
-                <button class="td2-button" @click="totalArmorBonus = 10; updateTotalArmor()">Set to 10</button>
+                <button class="td2-button" @click="totalArmorBonus = 0; updateTotalArmor()">{{setTo}} 0</button>
+                <button class="td2-button" @click="totalArmorBonus = 10; updateTotalArmor()">{{setTo}} 10</button>
             </div>
 
 
 <!-- ///////////////////////////////////////////////////////// -->
 
-            <div  class="box-orange">
-              {{["Set all gears to same value", "Set each gear to individual value"][+isIndividual]}} or 
+            <div class="box-orange">
+              {{switchLabelText[+isIndividual]}} 
               <button class="td2-button" @click="isIndividual = !isIndividual">
-                  {{switchModeText[+isIndividual]}}
+                  {{switchButtonText[+isIndividual]}}
               </button>
 
               <div v-show="!isIndividual">
-                <hr class="td2-hr"/>
-                <label :for="'oneProfLevelValue_id'">Proficiency Level: </label>
-                <input :id="'oneProfLevelValue_id'"
-                    v-model="oneProfLevelValue"
-                    class="text-lg td2-input" 
-                    type="number" placeholder="0" 
-                    min="0" max="21" step="1"
-                />
-                {{oneProfLevelValueError}}
-                <br/>
-                
-                <button class="td2-button" @click="oneProfLevelValue = 0">Set to 0</button>
-                <button class="td2-button" @click="oneProfLevelValue = 10">Set to 10</button>
-                <button class="td2-button" @click="oneProfLevelValue = 20">Set to 20</button>
-                <button class="td2-button" @click="oneProfLevelValue = 21">Set to 21</button>
-                <br/>
+                <div style="padding: 10px">
+                  <hr class="td2-hr"/>
+                  <label :for="'oneProfLevelValue_id'">{{proficiencyLevel}}: </label>
+                  <input :id="'oneProfLevelValue_id'"
+                      v-model="oneProfLevelValue"
+                      class="text-lg td2-input"
+                      style="width: 7ex; text-align: end;"
+                      type="number" placeholder="0" 
+                      min="0" max="21" step="1"
+                  />
+                  {{oneProfLevelValueError}}
+                  <br/>
+                  
+                  <button class="td2-button" @click="oneProfLevelValue = 0">{{setTo}} 0</button>
+                  <button class="td2-button" @click="oneProfLevelValue = 10">{{setTo}} 10</button>
+                  <button class="td2-button" @click="oneProfLevelValue = 20">{{setTo}} 20</button>
+                  <button class="td2-button" @click="oneProfLevelValue = 21">{{setTo}} 21</button>
+                  <br/>
 
-                <input type="checkbox" id="oneWithArmorValue" 
-                    name="oneWithArmorValue" v-model="oneWithArmorValue"
-                    @change="updateTotalArmor()">
-                <label for="oneWithArmorValue">
-                    Armor Core: {{ gearWithArmorCount ? gearWithArmorCount + " core(s) per 170 k = " + shortNumber(170000 * gearWithArmorCount) : "none" }}
-                </label> <br/>
+                  <input type="checkbox" id="oneWithArmorValue" 
+                      name="oneWithArmorValue" v-model="oneWithArmorValue"
+                      :class="{ 'unchecked' : !oneWithArmorValue }"
+                      @change="updateTotalArmor()">
+                  <label for="oneWithArmorValue">
+                      {{armorCore}}: {{ gearWithArmorCount ? gearWithArmorCount + " &times; 170 k = " + shortNumber(170000 * gearWithArmorCount) : "0" }}
+                  </label> <br/>
+                </div>
               </div>
+              <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
               <div v-show="isIndividual">
                 <div class="flex-container">
                   <div v-for="(gear, gearIndex) in gearItems"
@@ -326,38 +372,39 @@ export default {
                       <hr class="td2-hr"/>
                       
                       <div>
-                          {{gear.type}}: {{shortNumber(gearArmorList[gearIndex])}} + 
+                          {{gearType[gear.type]}}: {{shortNumber(gearArmorList[gearIndex])}} + 
                           {{gearProfLevelList[gearIndex]}}% = 
                           {{shortNumber(gearArmorList[gearIndex] * (1 + gearProfLevelList[gearIndex]/100))}}
                       </div>
-                      <label :for="'gearProfLevelList_'+gearIndex">Proficiency Level: </label>
+                      <label :for="'gearProfLevelList_'+gearIndex">{{proficiencyLevel}}: </label>
                       <input :id="'gearProfLevelList_'+gearIndex"
                           v-model="gearProfLevelList[gearIndex]"
                           class="text-lg td2-input" 
+                          style="width: 7ex; text-align: end;"
                           type="number" placeholder="0" 
                           min="0" max="21" step="1">
                       <br/>
                       <input type="checkbox" :id="'gearIndex_'+gearIndex"
-                          name="gearIndex"
-                          v-model="gearWithArmorList[gearIndex]">
-                      <label :for="'gearIndex_'+gearIndex">Armor Core: {{ gearWithArmorList[gearIndex] ? "170 k" : "0" }}</label>
+                        name="gearIndex" v-model="gearWithArmorList[gearIndex]"
+                        :class="{ 'unchecked' : !gearWithArmorList[gearIndex] }">
+                      <label :for="'gearIndex_'+gearIndex">{{armorCore}}: {{ gearWithArmorList[gearIndex] ? "170 k" : "0" }}</label>
                   </div>
                 </div>
 
                 <hr class="td2-hr"/>
-                All Proficiency Level:
-                <button class="td2-button" @click="setAllProfLevel(0)">Set to 0</button>
-                <button class="td2-button" @click="setAllProfLevel(10)">Set to 10</button>
-                <button class="td2-button" @click="setAllProfLevel(20)">Set to 20</button>
-                <button class="td2-button" @click="setAllProfLevel(21)">Set to 21</button>
+                {{allProficiencyLevel}}:
+                <button class="td2-button" @click="setAllProfLevel(0)">{{setTo}} 0</button>
+                <button class="td2-button" @click="setAllProfLevel(10)">{{setTo}} 10</button>
+                <button class="td2-button" @click="setAllProfLevel(20)">{{setTo}} 20</button>
+                <button class="td2-button" @click="setAllProfLevel(21)">{{setTo}} 21</button>
                 <button class="td2-button" @click="decAllProfLevel()">-1</button>
                 <button class="td2-button" @click="incAllProfLevel()">+1</button>
             </div>
           </div>           
 
 <!-- ///////////////////////////////////////////////////////// -->
-            <div class="stick stick-bottom">
-                Total gear upgrade costs
+            <div class="stick stick-bottom" v-if="0">
+                {{gearUpgradeCosts}}
                 <hr class="td2-hr"/>
 
                 <div v-for="(gearMatName,matIndex) in gearMaterialNames"
