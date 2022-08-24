@@ -90,6 +90,10 @@ export default {
       return this.$t('setTo');
     },
     
+    invalidInput() {
+      return this.$t('invalidInput');
+    },
+    
     gearType() {
       return this.objectFromLoacale('gearType');
     },
@@ -249,7 +253,7 @@ export default {
             this.gearProfLevelList[i] = this.oneProfLevelValue;
         }
       } else {
-        this.oneProfLevelValueError = "Invalid input";
+        this.oneProfLevelValueError = this.invalidInput;
       }
     },
     oneWithArmorValue(newValue, oldValue) {
