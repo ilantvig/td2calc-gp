@@ -130,9 +130,11 @@ body {
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  */
 
+
 input[type='checkbox'] {
   accent-color: hsl(23, 100%, 53%);
   position: relative;
+  margin: 0 0.5ex 0 0;
 }
 
 input[type='checkbox'].unchecked::after {
@@ -158,11 +160,6 @@ input[type='checkbox'].unchecked.disabled::after {
   outline: 1px solid #848484;
   outline-offset: -1px;
   border-radius: 2px;
-}
-
-
-button + button {
-  margin-left: 1.5ex;
 }
 
 .v-main-wrapper {
@@ -227,6 +224,10 @@ input:checked + .slider:before {
   transform: translateX(1.5em);
 }
 
+input + input {
+    margin-left: 1ex;
+}
+
 /* Rounded sliders */
 .slider.round {
   border-radius: 34px;
@@ -239,8 +240,11 @@ input:checked + .slider:before {
 /* Toggle Switch, end */
 
 button {
-  margin-top: 1ex;
-  margin-bottom: 1ex;
+  margin: 1ex 0;
+}
+
+button + button {
+  margin-left: 1ex;
 }
 
 .td2-button {
@@ -249,7 +253,6 @@ button {
   background-image: var(--main-bg-image);
   background-size: var(--main-bg-size);
   background-attachment: var(--main-bg-attachment);
-  
   
   padding: 2px 4px;
   /* width: 140px; */
@@ -268,8 +271,6 @@ button {
 }
 
 .td2-input {
-  padding: 2px 4px;
-  width: 100px;
   border: 1px solid #ff6d10;
   
   color: var(--main-color);
@@ -279,11 +280,20 @@ button {
   background-attachment: var(--main-bg-attachment);
 }
 
-.td2-hr {
-  height: 1px;
-  border-width: 0;
-  background-color: #ff6d10;
-  box-shadow: 0px 0px 10px 1px #ff6d10cc;
+.td2-input:focus {
+  /* text-align: center; */
+  outline: 1px solid #ff6d10;
+  border-radius: 2px;
+  box-shadow: 0px 0px 14px 0px #ff6d10cc;
+}
+
+.td2-input-data:focus {
+  text-align: center;
+}
+
+.td2-input-number {
+  width: 6em;
+  text-align: end;
 }
 
 .locale-container {
@@ -293,6 +303,14 @@ button {
   margin-right: 15px;
 }
 
+.td2-hr {
+  height: 1px;
+  border-width: 0;
+  background-color: #ff6d10;
+  box-shadow: 0px 0px 10px 1px #ff6d10cc;
+  /* margin-block-start: 0em; */
+  /* margin-block-end: 0em; */
+}
 
 .box-orange {
   /*  background-color: white;
@@ -306,6 +324,8 @@ width: 600px;*/
 
 
 .stick {
+  z-index: 1;
+
   position: -webkit-sticky; /* Safari */ 
   position: sticky;
 
@@ -360,6 +380,26 @@ width: 600px;*/
   padding: 10px;
   flex: auto;
 }
+
+
+.model-form {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ff6d10;
+  padding-bottom: 5px;
+  /* padding: 5px 5px; */
+  /* margin-bottom: 20px; */
+  /* background-color: #76db95; */
+  /* height: 30px; */
+  /* line-height: 30px; */
+  /* font-size: 18px; */
+  /* color: #212121; */
+}
+
+.model-form + .model-form {
+  padding-top: 5px;
+}
+
 
 /* Responsive layout - makes a one column-layout instead of two-column layout */
 @media (max-width: 600px) {
