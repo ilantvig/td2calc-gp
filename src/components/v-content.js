@@ -371,7 +371,7 @@ export default {
                 <div class="flex-container">
                   <div v-for="(gear, gearIndex) in gearItems"
                       :key="gearIndex"
-                      class="flex-item">
+                      style="width: 16em;">
                       
                       <hr class="td2-hr"/>
                       
@@ -414,7 +414,7 @@ export default {
                 <div class="flex-container">
                   <div v-for="(gearMatName,matIndex) in gearMaterialNames"
                   :key="matIndex"
-                  class="flex-item">
+                  style="width: 10em;">
                       {{gearMatName}}: {{totalGearUpgradeCoast[matIndex]}}
                   </div>
                 </div>
