@@ -338,7 +338,7 @@ export default {
               </button>
 
               <div v-show="!isIndividual">
-                <div style="padding: 10px">
+                <div>
                   <hr class="td2-hr"/>
                   <label :for="'oneProfLevelValue_id'">{{proficiencyLevel}}: </label>
                   <input :id="'oneProfLevelValue_id'"
