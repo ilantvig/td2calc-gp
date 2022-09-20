@@ -12,15 +12,7 @@ export default {
     },
   },
   data() {
-    return {
-      languages: {
-        en: "English",
-        fr: "Français",
-        es: "Español",
-        gr: "Deutsche",
-        ru: "Pусский",
-      },
-    };
+    return {};
   },
   computed: {
     value: {
@@ -32,22 +24,29 @@ export default {
       },
     },
   },
-  methods: {},
-  watch: {},
-  created() {},
+  methods: {
+    languageName(locale) {
+      const fixLocale = locale.replace(/_/g, "-");
+      let result = new Intl.DisplayNames([fixLocale], { type: "language" }).of(
+        fixLocale
+      );
+      result = result[0].toLocaleUpperCase() + result.slice(1);
+      return result;
+    },
+  },
+  // watch: {},
+  // created() {},
   // =======================================================
   template: /*template*/ `
-    <div class="locale-container">
-      <select
-        class="td2-input"
-        v-model="value">
-        <option 
-          v-for="locale in availableLocales" 
-          :key="'locale-'+locale"
-          :value="locale">
-          {{ languages[locale] }}
-        </option>
-      </select>
-    </div>
+    <select
+      class="td2-input"
+      v-model="value">
+      <option 
+        v-for="locale in availableLocales" 
+        :key="'locale-'+locale"
+        :value="locale">
+        {{ languageName(locale) }}
+      </option>
+    </select>
   `,
 };

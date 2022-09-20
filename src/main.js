@@ -1,28 +1,17 @@
-// main.js
-
 import { createApp } from "vue";
 
 import i18n from "./i18n.js";
-import vMainWrapper from "./components/v-main-wrapper.js";
-
-createApp({
-  data() {
-    return {
-      title: "TD2 Gear Proficiency Calculator",
-    };
-  },
-  template: /*template*/ `{{title}}`,
-}).mount("#title");
+import MainWrapper from "./components/MainWrapper.js";
 
 createApp({
   components: {
-    vMainWrapper,
+    MainWrapper,
   },
   data() {
     return {};
   },
   template: /*template*/ `
-      <v-main-wrapper />
+      <main-wrapper></main-wrapper>
   `,
 })
   .use(i18n)

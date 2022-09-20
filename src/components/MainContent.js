@@ -124,8 +124,8 @@ export default {
       let sum = 0;
       for (let i = 0; i < 6; i++) {
         sum +=
-          (this.gearArmorList[i] + 170000 * this.gearWithArmorList[i]) *
-          (1 + this.gearProfLevelList[i] / 100);
+          this.gearArmorList[i] * (1 + this.gearProfLevelList[i] / 100) +
+          170000 * this.gearWithArmorList[i];
       }
       sum *= 1 + this.totalArmorBonus / 100;
       this.totalArmor = Math.round(sum);
@@ -270,19 +270,7 @@ export default {
   // styles: [`/* inlined css */`],
   // =======================================================
   template: /*template*/ `
-        <div class="v-content">
-
-          <locale-changer
-            v-model="$i18n.locale"
-            :availableLocales = "$i18n.availableLocales"
-          />
-
-            <!--
-            {{text}} <br/>
-            {{gearWithArmorList}} <br/>
-            {{gearProfLevelList}} <br/>
-            -->
-            
+        <div class="main-content">
             
             <div class="stick stick-top">
               <h2 style="text-align: center;">
@@ -290,28 +278,6 @@ export default {
                 ({{(totalArmor).toLocaleString()}})
               </h2>
             </div>
-
-            <!--
-            <br />
-            
-            <div class="center">
-              <button v-if="isIndividual" 
-                class="td2-button" @click="isIndividual = !isIndividual">
-                  Switch to Group Mode
-              </button>
-              <button v-else
-                class="td2-button" @click="isIndividual = !isIndividual">
-                  Switch to Individual Mode
-              </button>
-            </div>
-
-            <div class="center">
-              <button class="td2-button" 
-                @click="isIndividual = !isIndividual">
-                  {{switchModeText[+isIndividual]}}
-              </button>
-            </div>
-            -->
 
 <!-- ///////////////////////////////////////////////////////// -->
 
@@ -326,6 +292,7 @@ export default {
                     min="0" max="35" step="1">%
                 <button class="td2-button" @click="totalArmorBonus = 0; updateTotalArmor()">{{setTo}} 0</button>
                 <button class="td2-button" @click="totalArmorBonus = 10; updateTotalArmor()">{{setTo}} 10</button>
+                <button class="td2-button" @click="totalArmorBonus = 15; updateTotalArmor()">{{setTo}} 15</button>
             </div>
 
 
@@ -429,12 +396,6 @@ export default {
 
             -->
             
-
-            <!--
-            <p v-for="index in 8" class="box-gray">
-               2<sup>{{--index}}</sup> = {{BigInt(2**index)}}
-            </p>
-            -->
         </div>
     `,
 };

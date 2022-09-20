@@ -162,11 +162,11 @@ input[type='checkbox'].unchecked.disabled::after {
   border-radius: 2px;
 }
 
-.v-main-wrapper {
+.main-wrapper {
   /* max-width: 900px; */
   margin: 0 auto;
 }
-.v-content {
+.main-content {
   max-width: 1000px;
   margin: 0 auto;
 }
