@@ -121,11 +121,9 @@ export default {
     },
 
     updateTotalArmor() {
-      let sum = 0;
+      let sum = 170000 * this.gearWithArmorList.reduce((s, e) => s + e, 0);
       for (let i = 0; i < 6; i++) {
-        sum +=
-          this.gearArmorList[i] * (1 + this.gearProfLevelList[i] / 100) +
-          170000 * this.gearWithArmorList[i];
+        sum += this.gearArmorList[i] * (1 + this.gearProfLevelList[i] / 100)
       }
       sum *= 1 + this.totalArmorBonus / 100;
       this.totalArmor = Math.round(sum);
